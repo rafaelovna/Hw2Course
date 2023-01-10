@@ -1,6 +1,9 @@
 package transport;
 
-public class Car {
+import java.util.Objects;
+
+public class Car extends Transport {
+
     class Key {
         private final boolean remoteEngineStart;
         private final boolean keylessAccess;
@@ -26,12 +29,8 @@ public class Car {
                     ". Бесключевой доступ: " + keylessAccess;
         }
     }
-    private final String brand;
-    private final String model;
+
     private double engineVolume;
-    private String color;
-    private final int year;
-    private final String country;
     private String transmission;
     private final String bodyType;
     private String registrationNumber;
@@ -40,40 +39,11 @@ public class Car {
     private boolean winterTire;
     private Key key;
 
-
-
-
-//    Конструктор
-
-    public Car(String brand, String model, double engineVolume, String color, int year, String country,
-               String transmission, String bodyType, String registrationNumber, int numberOfSeats,
-               boolean summerTire, boolean winterTire, boolean remoteEngineStart,
-               boolean keylessAccess) {
-
-
-        if (brand == null && brand.isBlank() && brand.isEmpty()) {
-            this.brand = "default";
-        } else {
-            this.brand = brand;
-        }
-
-        if (model == null && model.isBlank() && model.isEmpty()) {
-            this.model = "default";
-        } else {
-            this.model = model;
-        }
-
-        if (year <= 0) {
-            this.year = 2000;
-        } else {
-            this.year = year;
-        }
-
-        if (country == null && country.isBlank() && country.isEmpty()) {
-            this.country = "default";
-        } else {
-            this.country = country;
-        }
+    public Car(String brand, String model, int year, String countryOfManufacture,
+               String colorBody, int maximumMovementSpeed, double engineVolume,
+               String transmission, String bodyType, String registrationNumber,
+               int numberOfSeats, boolean summerTire, boolean winterTire, boolean remoteEngineStart, boolean keyLessAccess) {
+        super(brand, model, year, countryOfManufacture, colorBody, maximumMovementSpeed);
 
         if (bodyType == null && bodyType.isEmpty() && bodyType.isBlank()) {
             this.bodyType = "default";
@@ -89,31 +59,10 @@ public class Car {
 
         setTransmission(transmission);
         setRegistrationNumber(registrationNumber);
-        setColor(color);
         setEngineVolume(engineVolume);
         setSummerTire(summerTire);
         setWinterTire(winterTire);
-        setKey(remoteEngineStart, keylessAccess);
-    }
-// Создаем геттеры для неизменяемых полей!
-
-
-
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public String getCountry() {
-        return country;
+        setKey(remoteEngineStart, keyLessAccess);
     }
 
     public String getBodyType() {
@@ -124,9 +73,6 @@ public class Car {
         return numberOfSeats;
     }
 
-//    Остальные поля изменяться могут, доступ к ним должен
-//    осуществляться через геттеры и сеттеры.
-
     public double getEngineVolume() {
         return engineVolume;
     }
@@ -136,18 +82,6 @@ public class Car {
             this.engineVolume = 1.5;
         } else {
             this.engineVolume = engineVolume;
-        }
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        if (color == null && color.isEmpty() && color.isBlank()) {
-            this.color = "default";
-        } else  {
-            this.color = color;
         }
     }
 
@@ -201,24 +135,35 @@ public class Car {
         }
     }
 
-
-
-    public void setKey(Boolean remoteEngineStart, Boolean keyLessAccess) {
-            this.key = new Key(remoteEngineStart, keyLessAccess);
+    public void setKey(boolean remoteEngineStart, boolean keyLessAccess) {
+        this.key = new Key(remoteEngineStart, keyLessAccess);
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Car car = (Car) o;
+        return Double.compare(car.engineVolume, engineVolume) == 0 && numberOfSeats == car.numberOfSeats && summerTire == car.summerTire && winterTire == car.winterTire && Objects.equals(transmission, car.transmission) && Objects.equals(bodyType, car.bodyType) && Objects.equals(registrationNumber, car.registrationNumber) && Objects.equals(key, car.key);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), engineVolume, transmission, bodyType, registrationNumber, numberOfSeats, summerTire, winterTire, key);
+    }
+
+
+
+    @Override
     public String toString() {
-        return "Автомобиль: "+brand +" "+ model +
-                ". Объём двигателя: " + engineVolume +
-                ". Цвет: " + color +". Год выпуска: "+ year +
-                ". Страна сборки: " + country +
+        return "Автомобиль: " + super.toString() + ". Объем двигателя: " + engineVolume +
                 ". Коробка передач: " + transmission +
                 ". Тип кузова: " + bodyType +
                 ". Регистрационный номер: " + registrationNumber +
                 ". Количество мест: " + numberOfSeats +
                 ". Летняя резина: " + summerTire +
-                ". Зимняя резина: " + winterTire+
-                ". Ключ: "+ key;
+                ". Зимняя резина: " + winterTire + ". " + key;
+
     }
 }
