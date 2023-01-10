@@ -15,7 +15,6 @@ public class Bus extends Transport {
         setEngineVolume(engineVolume);
     }
 
-
     public String getTypeBus() {
         return typeBus;
     }
