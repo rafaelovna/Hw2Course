@@ -13,13 +13,13 @@ public abstract class Transport {
     public Transport(String brand, String model, int year,
                      String countryOfManufacture, String colorBody,
                      int maximumMovementSpeed) {
-        if (brand == null && brand.isBlank() && brand.isEmpty()) {
+        if (brand == null || brand.isBlank() || brand.isEmpty()) {
             this.brand = "default";
         } else {
             this.brand = brand;
         }
 
-        if (model == null && model.isBlank() && model.isEmpty()) {
+        if (model == null || model.isBlank() || model.isEmpty()) {
             this.model = "default";
         } else {
             this.model = model;
@@ -30,7 +30,7 @@ public abstract class Transport {
         } else {
             this.year = year;
         }
-        if (countryOfManufacture == null && countryOfManufacture.isBlank() && countryOfManufacture.isEmpty()) {
+        if (countryOfManufacture == null || countryOfManufacture.isBlank() || countryOfManufacture.isEmpty()) {
             this.countryOfManufacture = "default";
         } else {
             this.countryOfManufacture = countryOfManufacture;
@@ -66,7 +66,7 @@ public abstract class Transport {
     }
 
     public void setColorBody(String colorBody) {
-        if (colorBody == null && colorBody.isEmpty() && colorBody.isBlank()) {
+        if (colorBody == null || colorBody.isEmpty() || colorBody.isBlank()) {
             this.colorBody = "default";
         } else  {
             this.colorBody = colorBody;

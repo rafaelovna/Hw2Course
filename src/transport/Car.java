@@ -45,7 +45,7 @@ public class Car extends Transport {
                int numberOfSeats, boolean summerTire, boolean winterTire, boolean remoteEngineStart, boolean keyLessAccess) {
         super(brand, model, year, countryOfManufacture, colorBody, maximumMovementSpeed);
 
-        if (bodyType == null && bodyType.isEmpty() && bodyType.isBlank()) {
+        if (bodyType == null || bodyType.isEmpty() || bodyType.isBlank()) {
             this.bodyType = "default";
         } else {
             this.bodyType = bodyType;
@@ -90,7 +90,7 @@ public class Car extends Transport {
     }
 
     public void setTransmission(String transmission) {
-        if (transmission == null && transmission.isEmpty() && transmission.isBlank()) {
+        if (transmission == null || transmission.isEmpty() || transmission.isBlank()) {
             this.transmission = "default";
         } else {
             this.transmission = transmission;
@@ -102,7 +102,7 @@ public class Car extends Transport {
     }
 
     public void setRegistrationNumber(String registrationNumber) {
-        if (registrationNumber == null && registrationNumber.isEmpty() && registrationNumber.isBlank()) {
+        if (registrationNumber == null || registrationNumber.isEmpty() || registrationNumber.isBlank()) {
             this.registrationNumber = "default";
         } else {
             this.registrationNumber = registrationNumber;
